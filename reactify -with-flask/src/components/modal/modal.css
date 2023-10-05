@@ -1,0 +1,126 @@
+.modal-section
+{
+	background-color: hotpink;
+	top : 0%;
+	left : 0%;
+	}
+
+.modal-overlay
+{
+	position        : fixed;
+	top             : 0;
+	left            : 0;
+	right           : 0;
+	bottom          : 0;
+	background      : black;
+	display         : flex;
+	justify-content : center;
+	align-items     : center;
+	}
+
+.modal-content
+{
+	background    : #fff;
+	padding       : 20px;
+	border-radius : 4px;
+	width         : 50%;
+	}
+
+.fullpage-modal-overlay
+{
+	/*border-radius: 5px;*/
+	/*margin     : 5%;*/
+	position   : fixed;
+	top        : 0;
+	left       : 0;
+	right      : 0;
+	bottom     : 0;
+	background : rgba(0, 0, 0, 0.7); /* semi-transparent background */
+	z-index    : 1000; /* ensure the modal appears above other content */
+	}
+
+.fullpage-modal-content
+{
+	position : absolute;
+	top    : 50%;
+	left   : 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-content: center;
+	text-align: center;
+	border-radius: 10px;
+	border: #3498db solid 2px;
+
+	width      : 90%;
+	height     : 90vh;
+	background : #fff;
+	}
+.button{
+	position : absolute;
+	display : block;
+	justify-content: left;
+	align-items: flex-start;
+	top : 1rem;
+	left : 2rem;
+	/*align-content: center;*/
+	/*justify-content: center;*/
+
+	}
+
+
+.circle
+{
+	font-size: 3rem;
+	width            : 75px; /* Adjust the size as needed */
+	height           : 75px; /* Adjust the size as needed */
+	background-color : #007bff; /* Set the background color */
+	border-radius    : 50%; /* Makes it a circle */
+	}
+
+
+	/* CSS */
+.button-7
+{
+	background-color    : #0095ff;
+	border              : 1px solid transparent;
+	border-radius       : 3px;
+	box-shadow          : rgba(255, 255, 255, .4) 0 1px 0 0 inset;
+	box-sizing          : border-box;
+	color               : #fff;
+	cursor              : pointer;
+	display             : inline-block;
+	font-family         : -apple-system, system-ui, "Segoe UI", "Liberation Sans", sans-serif;
+	font-size           : 13px;
+	font-weight         : 400;
+	line-height         : 1.15385;
+	margin              : 0;
+	outline             : none;
+	padding             : 8px .8em;
+	position            : relative;
+	text-align          : center;
+	text-decoration     : none;
+	user-select         : none;
+	-webkit-user-select : none;
+	touch-action        : manipulation;
+	vertical-align      : baseline;
+	white-space         : nowrap;
+	}
+
+.button-7:hover,
+.button-7:focus
+{
+	background-color : #07c;
+	}
+
+.button-7:focus
+{
+	box-shadow : 0 0 0 4px rgba(0, 149, 255, .15);
+	}
+
+.button-7:active
+{
+	background-color : #0064bd;
+	box-shadow       : none;
+	}

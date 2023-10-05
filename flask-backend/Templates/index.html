@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Your API Name Documentation</title>
+  </head>
+  <body>
+    <h1>Welcome to the Your API Name API Documentation</h1>
+    <p>
+      We're excited to have you here. This documentation will help you get
+      started with using our Flask backend API.
+    </p>
+
+    <h2>Introduction</h2>
+    <p>
+      Your API Name is a powerful API that allows you to [briefly describe the
+      main purpose or functionality of your API].
+    </p>
+
+    <h2>Authentication</h2>
+    <p>
+      To use our API, you will need to authenticate your requests. We use API
+      keys for authentication. To obtain an API key, please contact our support
+      team at <a href="mailto:support@example.com">support@example.com</a>. Once
+      you have your API key, you can include it in your requests using the
+      <code>Authorization</code> header as follows:
+    </p>
+    <pre><code>Authorization: Bearer YOUR_API_KEY</code></pre>
+
+    <h2>Base URL</h2>
+    <p>The base URL for all API endpoints is:</p>
+    <pre><code>https://api.example.com/v1/</code></pre>
+
+    <h2>Endpoints</h2>
+    <h3>[Endpoint Name]</h3>
+    <p><strong>Endpoint:</strong> /endpoint-path</p>
+    <p><strong>Method:</strong> GET</p>
+    <p>
+      <strong>Description:</strong> [Briefly describe the purpose of this
+      endpoint]
+    </p>
+    <p><strong>Parameters:</strong></p>
+    <ul>
+      <li><code>param1</code> (required) - [Description of param1]</li>
+      <li><code>param2</code> (optional) - [Description of param2]</li>
+    </ul>
+    <h4>Example Request</h4>
+    <pre><code>GET https://api.example.com/v1/endpoint-path?param1=value1&param2=value2
+Authorization: Bearer YOUR_API_KEY</code></pre>
+    <h4>Example Response</h4>
+    <pre><code>{
+  "message": "Welcome to [Your API Name]! Your request was successful.",
+  "data": {
+    "example_data": "Hello, world!"
+  }
+}</code></pre>
+    <p><strong>HTTP Status Codes:</strong></p>
+    <ul>
+      <li>200 OK: The request was successful.</li>
+      <li>
+        400 Bad Request: The request was malformed or missing required
+        parameters.
+      </li>
+      <li>
+        401 Unauthorized: Authentication failed or the API key is missing.
+      </li>
+      <li>
+        500 Internal Server Error: An unexpected error occurred on the server.
+      </li>
+    </ul>
+
+    <h2>Errors</h2>
+    <p>
+      In case of errors, the API will return a JSON response with an error
+      message and an HTTP status code to help you identify and resolve the
+      issue.
+    </p>
+
+    <h2>Rate Limiting</h2>
+    <p>
+      [Optional: If your API has rate limiting, describe the rate limits here]
+    </p>
+
+    <h2>Conclusion</h2>
+    <p>
+      Thank you for using the [Your API Name] API! If you have any questions or
+      need further assistance, please don't hesitate to contact our support team
+      at
+      <a href="mailto:oackland.toro@outlook.com">oackland.toro@outlook.com</a>.
+    </p>
+  </body>
+</html>
