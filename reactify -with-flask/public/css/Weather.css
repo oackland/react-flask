@@ -1,0 +1,24 @@
+.container-weather{
+	position: absolute;
+	top: 30%;
+	transform: translate(0,-30%);
+	left   : 5%;
+	display: flex;
+	flex-direction: column;
+	border : #e41c6f solid 3px;
+	font-size        : 1rem;
+	color            : #3498db;
+	background-color : white;
+	padding          : 0 1rem;
+	margin-bottom    : 5rem;
+	text-transform   : uppercase;
+	letter-spacing   : .5rem;
+	border-bottom    : 0.3rem solid #fff;
+	text-shadow      : 0.2rem 0.2rem 1rem #555;
+	max-width: 340px;
+	}
+
+p{
+	color : #000;
+	
+	}

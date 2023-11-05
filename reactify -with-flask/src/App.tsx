@@ -1,35 +1,21 @@
-import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import SignIn from "./pages/forms/SignIn";
-import SignUp from "./pages/forms/SignUp";
-import Login from "./pages/forms/Login";
-import Todo from "./pages/Todo";
-
+import { WeatherProvider } from "./context/weatherContext";
+import { UserProvider } from "./context/userContext";
 import "react-toastify/dist/ReactToastify.css";
-import Dashboard from "./components/dashboard/Dashboards";
+import Home from "./pages/Home";
 
-interface AppProps {
-  children: React.ReactNode;
-  user: { id: number; username: string; email: string };
-}
-
-const App: React.FC<AppProps> = ({ children, user }: AppProps) => {
+function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/TodoList" element={<Todo />} />
-        <Route
-          path="/dashboard"
-          element={<Dashboard children={children} user={user} />}
-        />
-      </Routes>
-    </Router>
+    <UserProvider>
+      <WeatherProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </Router>
+      </WeatherProvider>
+    </UserProvider>
   );
-};
+}
 
 export default App;

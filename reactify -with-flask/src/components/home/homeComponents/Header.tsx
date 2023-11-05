@@ -1,15 +1,17 @@
+import React from "react";
+
 const Header: React.FC = () => {
   return (
     <header className="header center">
       <div className="header-text">
-        <h1 className="heading">Around the world</h1>
+        <h1 className="heading">NOTECODE</h1>
         <p className="header-paragraph">
-          "Traveling - it leaves you speechless, then turns you into a
-          storyteller"
+          "CODING & TRAVELING - With NoteCode you can simplify your coding
+          experience to start your journey with your own Desktop experience"
         </p>
       </div>
       <img
-        src="../../../../public/img/—Pngtree—hot%20air%20balloon_54000.png"
+        src="../../../../public/img/—Pngtree—hot air balloon_54000.png"
         alt="Header Image"
         className="header-image"
       />

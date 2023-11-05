@@ -11,7 +11,12 @@ interface DashboardProps {
 }
 
 const Dashboard: React.FC<DashboardProps> = ({ children }: DashboardProps) => {
-  return <Layout children={children}></Layout>;
+  return (
+    <>
+      <Layout children={children}></Layout>
+      <div></div>
+    </>
+  );
 };
 
 export default Dashboard;

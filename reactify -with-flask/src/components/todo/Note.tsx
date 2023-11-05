@@ -1,11 +1,17 @@
 import React from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { NoteItem } from "../types";
 
-const Note: React.FC<NoteItem> = (props) => {
-  function handleClick() {
+interface NoteProps {
+  id: number;
+  title: string;
+  content: string;
+  onDelete: (id: number) => void;
+}
+
+const Note: React.FC<NoteProps> = (props) => {
+  const handleClick = () => {
     props.onDelete(props.id);
-  }
+  };
 
   return (
     <div className="note">

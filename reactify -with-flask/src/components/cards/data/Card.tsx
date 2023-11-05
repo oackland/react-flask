@@ -23,7 +23,6 @@ const Card: React.FC<Cards> = ({
   content4,
   content5,
   summary,
-  tourName,
 }) => {
   return (
     <div className="card">

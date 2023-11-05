@@ -1,35 +1,37 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { useState, useRef } from "react";
+// Draggable.tsx
+import React, { useState, useRef } from "react";
 const Draggable = ({ children }) => {
-    const [isDragging, setIsDragging] = useState(false);
-    const [position, setPosition] = useState({
-        x: 0,
-        y: 0,
-    });
+    const [isDragging, setDragging] = useState(false);
+    const [pos, setPos] = useState({ x: 0, y: 0 });
     const ref = useRef(null);
-    const handleMouseDown = () => {
-        setIsDragging(true);
-        document.addEventListener("mousemove", handleMouseMove);
-        document.addEventListener("mouseup", handleMouseUp);
-    };
-    const handleMouseUp = () => {
-        setIsDragging(false);
-        document.removeEventListener("mousemove", handleMouseMove);
-        document.removeEventListener("mouseup", handleMouseUp);
-    };
-    const handleMouseMove = (e) => {
-        if (ref.current && isDragging) {
-            setPosition({
-                x: e.clientX - ref.current.getBoundingClientRect().left,
-                y: e.clientY - ref.current.getBoundingClientRect().top,
+    const onMouseDown = (e) => {
+        if (ref.current) {
+            const rect = ref.current.getBoundingClientRect();
+            setPos({
+                x: e.clientX - rect.left,
+                y: e.clientY - rect.top,
             });
+            setDragging(true);
         }
     };
-    return (_jsx("div", { ref: ref, onMouseDown: handleMouseDown, style: {
-            cursor: isDragging ? "grabbing" : "grab",
-            position: "absolute",
-            left: position.x,
-            top: position.y,
-        }, children: children }));
+    const onMouseMove = (e) => {
+        if (isDragging && ref.current) {
+            ref.current.style.left = `${e.clientX - pos.x}px`;
+            ref.current.style.top = `${e.clientY - pos.y}px`;
+        }
+    };
+    const onMouseUp = () => {
+        setDragging(false);
+    };
+    React.useEffect(() => {
+        document.addEventListener("mousemove", onMouseMove);
+        document.addEventListener("mouseup", onMouseUp);
+        return () => {
+            document.removeEventListener("mousemove", onMouseMove);
+            document.removeEventListener("mouseup", onMouseUp);
+        };
+    }, [isDragging, pos]);
+    return (_jsx("div", { ref: ref, onMouseDown: onMouseDown, style: { position: "absolute", cursor: "grab" }, children: children }));
 };
 export default Draggable;

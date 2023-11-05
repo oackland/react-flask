@@ -4,8 +4,8 @@ const Navbar = forwardRef<HTMLDivElement, NonNullable<unknown>>(
   (_props, ref) => {
     return (
       <nav ref={ref} className="navbar1 center">
-        <a href="#" className="navbar-link">
-          Home
+        <a href="http://localhost:5000/" className="navbar-link">
+          APIDOCS
         </a>
         <a href="#" className="navbar-link">
           About

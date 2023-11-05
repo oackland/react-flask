@@ -1,6 +1,5 @@
 import requests
 from flask_login import login_required
-from flask_jwt_extended import get_jwt_identity
 from app.models import db, User, Quote, Note
 from flask import current_app as app, render_template
 from config import Config
@@ -23,12 +22,10 @@ def register():
 		password = data.get('password')
 		first_name = data.get('first_name')
 		last_name = data.get('last_name')
-		member_type = data.get('member_type')  # Added member_type
+		member_type = data.get('member_type')
 
 		if not all([username, email, password, first_name, last_name, member_type]):
 			return jsonify({'error': 'All fields are required'}), 400
-
-		# Additional validations for username and email can be added here
 
 		if User.query.filter_by(username=username).first():
 			return jsonify({'error': 'Username already exists'}), 400
@@ -36,10 +33,8 @@ def register():
 		if User.query.filter_by(email=email).first():
 			return jsonify({'error': 'Email already exists'}), 400
 
-		hashed_password = generate_password_hash(password)  # Consider configuring the method and options
-		new_user = User(username=username, email=email, first_name=first_name, last_name=last_name,
-						member_type=member_type,
-						hashed_password=hashed_password)
+		hashed_password = generate_password_hash(password)
+		new_user = User()
 
 		db.session.add(new_user)
 		db.session.commit()
@@ -50,34 +45,6 @@ def register():
 		return jsonify({'error': 'Could not register user'}), 500
 	finally:
 		db.session.close()
-
-
-#
-# @api.route('/login', methods=['POST'])
-# def login():
-# 	data = request.get_json()
-# 	if not data:
-# 		return jsonify({'error': 'Invalid input'}), 400
-#
-# 	username = data.get('username')
-# 	password = data.get('password')
-#
-# 	user = User.query.filter_by(username=username).first()
-# 	if not user or not user.check_password(password):
-# 		return jsonify({'error': 'Invalid credentials'}), 401
-#
-# 	try:
-# 		access_token = create_access_token(identity={'username': username})
-# 		return jsonify({'token': access_token}), 200
-# 	except Exception as e:
-# 		app.logger.error(f'Error creating access token: {str(e)}')
-# 		return jsonify({'error': 'Could not log in'}), 500
-#
-
-# @api.route('/')
-# def home():
-# 	return jsonify({'message': 'Home'})
-#
 
 
 @api.route('/submit', methods=['POST'])
@@ -155,11 +122,6 @@ def login():
 
 	token = create_access_token(identity=email)
 	return jsonify({'token': token})
-
-
-@api.route("/")
-def hello_world():
-	return render_template('index.html')
 
 
 @api.route('/user/<int:user_id>', methods=['GET'])

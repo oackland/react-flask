@@ -59,8 +59,8 @@ const Navbar: React.FC = () => {
             <div className="line line-2"></div>
           </div>
           <div className="nav-list">
-            <a href="https://google.com" className="nav-link center">
-              Home
+            <a href="http://127.0.0.1/5000" className="nav-link center">
+              API DOCS
             </a>
             <a href="#" className="nav-link center">
               Services

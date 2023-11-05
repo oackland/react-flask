@@ -3,6 +3,9 @@
   <component name="Black">
     <option name="sdkName" value="Python 3.10.12 WSL (Ubuntu): (/home/utoro/python/bin/python)" />
   </component>
+  <component name="JavaScriptSettings">
+    <option name="languageLevel" value="FLOW" />
+  </component>
   <component name="ProjectRootManager">
     <output url="file://$PROJECT_DIR$/out" />
   </component>

@@ -27,12 +27,10 @@ def create_app():
 	with app.app_context():
 		db.create_all()
 
-	# Import and register blueprints
 	from app.blueprints.routes import api
 	app.register_blueprint(api, url_prefix='/api')
 
 	# Configure login manager
-	# This is essential
 	login_manager.login_view = "api.login"
 	login_manager.login_message_category = "danger"
 

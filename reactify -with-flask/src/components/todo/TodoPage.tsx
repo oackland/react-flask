@@ -1,36 +1,37 @@
-import React, { useState } from "react";
+import { useState, FC } from "react";
 import Note from "./Note";
-import { NoteItem } from "../types";
+import CreateArea from "./CreateArea";
 
-const TodoList: React.FC = () => {
+interface NoteItem {
+  title: string;
+  content: string;
+}
+
+const App: FC = () => {
   const [notes, setNotes] = useState<NoteItem[]>([]);
 
-  function deleteNote(id: number) {
-    setNotes((prevNotes) => {
-      return prevNotes.filter((_, index) => {
-        return index !== id;
-      });
-    });
-  }
+  const addNote = (newNote: NoteItem) => {
+    setNotes((prevNotes) => [...prevNotes, newNote]);
+  };
+
+  const deleteNote = (id: number) => {
+    setNotes((prevNotes) => prevNotes.filter((_, index) => index !== id));
+  };
 
   return (
     <div>
-      {notes.map((noteItem, index) => {
-        return (
-          <Note
-            key={index}
-            id={index}
-            title={noteItem.title}
-            content={noteItem.content}
-            Frequence={noteItem.Frequence}
-            value={noteItem.value}
-            completed={noteItem.completed}
-            onDelete={deleteNote}
-          />
-        );
-      })}
+      <CreateArea onAdd={addNote} />
+      {notes.map((noteItem, index) => (
+        <Note
+          key={index}
+          id={index}
+          title={noteItem.title}
+          content={noteItem.content}
+          onDelete={deleteNote}
+        />
+      ))}
     </div>
   );
 };
 
-export default TodoList;
+export default App;

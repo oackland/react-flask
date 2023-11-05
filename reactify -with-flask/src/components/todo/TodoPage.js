@@ -1,17 +1,15 @@
-import { jsx as _jsx } from "react/jsx-runtime";
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
 import Note from "./Note";
-const TodoList = () => {
+import CreateArea from "./CreateArea";
+const App = () => {
     const [notes, setNotes] = useState([]);
-    function deleteNote(id) {
-        setNotes((prevNotes) => {
-            return prevNotes.filter((_, index) => {
-                return index !== id;
-            });
-        });
-    }
-    return (_jsx("div", { children: notes.map((noteItem, index) => {
-            return (_jsx(Note, { id: index, title: noteItem.title, content: noteItem.content, Frequence: noteItem.Frequence, value: noteItem.value, completed: noteItem.completed, onDelete: deleteNote }, index));
-        }) }));
+    const addNote = (newNote) => {
+        setNotes((prevNotes) => [...prevNotes, newNote]);
+    };
+    const deleteNote = (id) => {
+        setNotes((prevNotes) => prevNotes.filter((_, index) => index !== id));
+    };
+    return (_jsxs("div", { children: [_jsx(CreateArea, { onAdd: addNote }), notes.map((noteItem, index) => (_jsx(Note, { id: index, title: noteItem.title, content: noteItem.content, onDelete: deleteNote }, index)))] }));
 };
-export default TodoList;
+export default App;

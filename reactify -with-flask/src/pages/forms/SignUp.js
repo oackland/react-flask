@@ -5,6 +5,15 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
 const memberTypes = ["Parent", "Children", "Teacher"];
+const transformPayload = (values) => {
+    return {
+        username: values.username,
+        first_name: values.firstName,
+        last_name: values.lastName,
+        member_type: values.memberType,
+        password: values.password,
+    };
+};
 const validationSchema = yup.object({
     username: yup.string().required("Username is required"),
     firstName: yup.string().required("First name is required"),
@@ -39,16 +48,7 @@ const Signup = () => {
         },
         validationSchema,
         onSubmit: (values) => {
-            const payload = {
-                ...values,
-                first_name: values.firstName,
-                last_name: values.lastName,
-                member_type: values.memberType,
-            };
-            delete payload.firstName;
-            delete payload.lastName;
-            delete payload.memberType;
-            // Send a POST request to the Flask API endpoint using Axios
+            const payload = transformPayload(values);
             axios
                 .post("http://localhost:5000/api/register", payload, {
                 headers: {

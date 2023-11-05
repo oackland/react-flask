@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
-import StickyNavbar from "./StickyNavbar";
 import DashHeader from "./DashComponents/DashHeader";
-import Footer from "../home/homeComponents/Footer";
+import WeatherComponent from "../weather/SearchMain";
+import EmbeddedBrowser from "././webEbedded";
 
 interface LayoutProps {
   children: ReactNode;
@@ -10,13 +10,10 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = () => (
   <div className="layout">
     <header>
+      <WeatherComponent />
       <DashHeader />
     </header>
-    <StickyNavbar />
-
-    <footer>
-      <Footer />
-    </footer>
+    <EmbeddedBrowser url={"https://google.com"} />
   </div>
 );
 

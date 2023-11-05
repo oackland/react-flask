@@ -1,98 +1,94 @@
-import axios from "axios";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import axios, { AxiosError } from "axios";
+import { useUser } from "../../context/userContext";
+import { Link, useNavigate } from "react-router-dom";
+
+interface LoginResponse {
+  access_token: string;
+}
 
 const Login: React.FC = () => {
+  const [credential, setCredential] = useState<string>(""); // can be either username or email
+  const [password, setPassword] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const { login } = useUser();
   const navigate = useNavigate();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  const validationSchema = Yup.object().shape({
-    email: Yup.string().email("Invalid email address").required("Required"),
-    password: Yup.string().required("Required"),
-  });
+    try {
+      const response = await axios.post<LoginResponse>("/server/login", {
+        username: credential,
+        password,
+      });
 
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    validationSchema: validationSchema,
-    onSubmit: async (values) => {
-      try {
-        const response = await axios.post(
-          "http://localhost:5000/api/login",
-          values,
-        );
-        const { token } = response.data;
-
-        localStorage.setItem("token", token);
-        navigate("/dashboard");
-      } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-          formik.setStatus(
-            error.response.data.error || "An unexpected error occurred",
-          );
+      if (response.data && "access_token" in response.data) {
+        login(response.data.access_token, credential);
+        navigate("/MyDashboard");
+      }
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          setErrorMessage(error.response.data.message);
         } else {
-          formik.setStatus("An unexpected error occurred");
+          setErrorMessage("Error logging in.");
         }
       }
-    },
-  });
+    }
+  };
 
   return (
-    <>
-      <section className="stories full-height">
-        <div className="video-container">
-          <video className="bg-video" autoPlay muted loop>
-            <source src="../../../public/img/video.mp4" type="video/mp4" />
-          </video>
-        </div>
-        <h1 className="white form-title">
-          <i className={"text-with-shadow"}>LOG IN</i>
-        </h1>
-        <div className="container-login">
-          <form onSubmit={formik.handleSubmit}>
-            <h1>Login</h1>
-
+    <section className={"login-form"}>
+      <div className={"morphic-glass"}>
+        <div className="morphic-glass-content">
+          <h2 className={"form-title"}>Login</h2>
+          <br />
+          <form onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="email" className="form-label">
-                Email
-              </label>
+              <label htmlFor="credential">Username/Email:</label>
               <input
-                type="email"
-                id="email"
-                className="form-input"
-                placeholder="Enter your Email"
-                value={formik.values.email}
-                onChange={formik.handleChange}
+                className={"formInput"}
+                type="text"
+                id="credential"
+                value={credential}
+                onChange={(e) => setCredential(e.target.value)}
               />
-              {formik.touched.email && formik.errors.email ? (
-                <div className="form-error">{formik.errors.email}</div>
-              ) : null}
-
-              <label htmlFor="password" className="form-label">
-                Password
-              </label>
+            </div>
+            <br />
+            <div>
+              <label htmlFor="password">Password:</label>
               <input
+                className={"formInput"}
                 type="password"
                 id="password"
-                className="form-input"
-                placeholder="Enter your Password"
-                value={formik.values.password}
-                onChange={formik.handleChange}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
-              {formik.touched.password && formik.errors.password ? (
-                <div className="form-error">{formik.errors.password}</div>
-              ) : null}
             </div>
-
-            <button type="submit" className="form-button">
-              Login
-            </button>
+            <button type="submit">Login</button>
+            <p className={"finePrint"}>
+              Still no have an account?{" "}
+              <span>
+                <Link to={"/Signup"}>Signup</Link>
+              </span>
+            </p>
+            <br />
+            <div className="separator">
+              <hr className="line" />
+              <span>
+                <Link to={"/"}>GO HOME</Link>
+              </span>
+              <hr className="line" />
+            </div>
           </form>
+          {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 
